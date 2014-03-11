@@ -19,4 +19,4 @@ end
 
 lastEffectID = 0
 Network:Subscribe("MouseTrigger", MouseTrigger)
-Event:Subscribe("PlayerSpawn", PlayerSpawn)
+Events:Subscribe("PlayerSpawn", PlayerSpawn)
