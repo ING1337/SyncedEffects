@@ -1,4 +1,4 @@
--- From Jman100's Client Effects Browser script
+-- From Jman100's Client Effects Browser script | Only needed for the demo script!
 -- http://www.jc-mp.com/forums/index.php/topic,4727.0.html
 
 Effects = {
