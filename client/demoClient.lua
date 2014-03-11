@@ -15,11 +15,11 @@ OnMouseWheel = function(args)
 end
 
 OnKeyDown = function(args)
-	if args.key == Key.Shift then shifted = true end
+	if args.key == 16 then shifted = true end
 end
 
 OnKeyUp = function(args)
-	if args.key == Key.Shift then shifted = false end
+	if args.key == 16 then shifted = false end
 end
 
 OnRender = function(args)
