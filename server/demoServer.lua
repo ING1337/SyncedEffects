@@ -1,6 +1,6 @@
 -- EffectGun Demo by ING
 
-MouseTrigger = function(args)
+MouseTrigger = function(args, player)
 	if args.button == 1 then
 		-- create a new synced effect
 		lastEffectID = syncedEffects:CreateEffect(args.id, args.raycast.position, nil, 10, 1024, Vector3(0, 2, 0), nil)
