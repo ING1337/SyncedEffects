@@ -57,9 +57,10 @@ function SyncedEffects:UpdateEffect(e)
 end
 
 function SyncedEffects:RemoveEffect(e)
-	if self.effects[e.id] then
-		self.effects[e.id].effect:Remove()
-		Network:Unsubscribe(self.effects[e.id].sub)
+	local effect = self.effects[e.id]
+	if effect then
+		effect.effect:Remove()
+		Network:Unsubscribe(effect.sub)
 		self.effects[e.id] = nil
 	end
 end
