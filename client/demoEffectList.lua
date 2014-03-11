@@ -1,5 +1,6 @@
--- From Jman100's Client Effects Browser script | Only needed for the demo script!
+-- From Jman100's Client Effects Browser script
 -- http://www.jc-mp.com/forums/index.php/topic,4727.0.html
+-- Only needed for the demo script!
 
 Effects = {
 	"explosion.bin",
