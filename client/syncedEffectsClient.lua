@@ -52,7 +52,7 @@ function SyncedEffects:UpdateEffect(e)
 		if e.angle    then effect.angle    = e.angle end
 		if e.velocity then effect.velocity = e.velocity end
 		if e.spin     then effect.spin     = e.spin end
-		if e.time     then effect.time     = e.time = e.time * 1000 + self.timer:GetMilliseconds() end
+		if e.time     then effect.time     = e.time * 1000 + self.timer:GetMilliseconds() end
 	end
 end
 
