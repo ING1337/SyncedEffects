@@ -19,11 +19,11 @@ function SyncedEffects:RenderEffects()
 	time = self.timer:GetMilliseconds()
 	
 	if time > self.lastRender + self.fps  then
+		timing = (time - self.lastRender) / 1000
 		for k, e in pairs(self.effects) do
 			if e.time > 0 and e.time < time then
 				self:RemoveEffect(e)
 			else
-				timing = (time - self.lastRender) / 1000
 				e.position = e.position + e.velocity * timing
 				e.angle    = e.angle    * self:ScaleAngle(e.spin, timing)
 				e.effect:SetPosition(e.position)
