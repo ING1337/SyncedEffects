@@ -16,7 +16,7 @@ function SyncedEffects:CreateEffect(effectID, position, angle, time, distance, v
 	args.effect_id = effectID
 	args.position  = position
 	args.angle     = angle or Angle()
-	args.time      = time or 0
+	args.time      = time or 10
 	args.distance  = distance or 1024
 	args.velocity  = velocity or Vector3()
 	args.spin      = spin or Angle()
