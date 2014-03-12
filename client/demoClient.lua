@@ -9,17 +9,9 @@ OnMouseClick = function(args)
 end
 
 OnMouseWheel = function(args)
-	id = id + (shifted and 20 or 1) * (args.delta > 0 and 1 or -1)
+	id = id + (Key:IsDown(16) and 20 or 1) * (args.delta > 0 and 1 or -1)
 	if id < 0 then id = #Effects - 1 end
 	if id > #Effects - 1 then id = 0 end
-end
-
-OnKeyDown = function(args)
-	if args.key == 16 then shifted = true end
-end
-
-OnKeyUp = function(args)
-	if args.key == 16 then shifted = false end
 end
 
 OnRender = function(args)
@@ -29,10 +21,6 @@ end
 -- ####################################################################################################################################
 
 id      = 0
-shifted = false
-
 Events:Subscribe("Render", OnRender)
 Events:Subscribe("MouseDown", OnMouseClick)
 Events:Subscribe("MouseScroll", OnMouseWheel)
-Events:Subscribe("KeyDown", OnKeyDown)
-Events:Subscribe("KeyUp", OnKeyUp)
