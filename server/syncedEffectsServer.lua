@@ -3,9 +3,10 @@
 class 'SyncedEffects'
 
 function SyncedEffects:__init(minID, maxID)
-	self.minID      = minID or 1
-	self.maxID      = maxID or 10000
-	self.id         = self.minID
+	self.minID = minID or 1
+	self.maxID = maxID or 10000
+	self.id    = self.minID
+	Events:Subscribe("CreateSyncedEffect", self, self.CreateSyncedEffect)
 end
 
 -- ####################################################################################################################################
@@ -15,17 +16,22 @@ function SyncedEffects:Create(effectID, position, angle, time, distance, velocit
 	args.id        = self.id
 	args.effect_id = effectID
 	args.position  = position
-	args.angle     = angle or Angle()
-	args.time      = time or 0
-	args.distance  = distance or 1024
-	args.velocity  = velocity or Vector3()
-	args.spin      = spin or Angle()
+	args.angle     = angle
+	args.time      = time
+	args.distance  = distance
+	args.velocity  = velocity
+	args.spin      = spin
 	
 	self.id = self.id + 1
 	if self.id > self.maxID then self.id = self.minID end
 	
 	Network:Broadcast("CreateEffect", args)
 	return args.id
+end
+
+function SyncedEffects:CreateSyncedEffect(args)
+	args.id = self.id
+	Network:Broadcast("CreateEffect", args)
 end
 
 function SyncedEffects:Update(id, position, angle, velocity, spin, time)
