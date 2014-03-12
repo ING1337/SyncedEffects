@@ -10,13 +10,13 @@ end
 
 -- ####################################################################################################################################
 
-function SyncedEffects:CreateEffect(effectID, position, angle, time, distance, velocity, spin)
+function SyncedEffects:Create(effectID, position, angle, time, distance, velocity, spin)
 	local args     = {}
 	args.id        = self.id
 	args.effect_id = effectID
 	args.position  = position
 	args.angle     = angle or Angle()
-	args.time      = time or 10
+	args.time      = time or 0
 	args.distance  = distance or 1024
 	args.velocity  = velocity or Vector3()
 	args.spin      = spin or Angle()
@@ -28,7 +28,7 @@ function SyncedEffects:CreateEffect(effectID, position, angle, time, distance, v
 	return args.id
 end
 
-function SyncedEffects:UpdateEffect(id, position, angle, velocity, spin, time)
+function SyncedEffects:Update(id, position, angle, velocity, spin, time)
 	local args = {}
 	args.id       = id
 	args.position = position
@@ -39,10 +39,10 @@ function SyncedEffects:UpdateEffect(id, position, angle, velocity, spin, time)
 	Network:Broadcast("UE" .. id, args)
 end
 
-function SyncedEffects:RemoveEffect(eid)
+function SyncedEffects:Remove(eid)
 	Network:Broadcast("RemoveEffect", {id = eid})
 end
 
 -- ####################################################################################################################################
 
-syncedEffects = SyncedEffects()
+SyncedEffect = SyncedEffects()
