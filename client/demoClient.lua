@@ -20,7 +20,7 @@ end
 
 -- ####################################################################################################################################
 
-id      = 0
+id = 0
 Events:Subscribe("Render", OnRender)
 Events:Subscribe("MouseDown", OnMouseClick)
 Events:Subscribe("MouseScroll", OnMouseWheel)
