@@ -24,7 +24,7 @@ function SyncedEffects:Create(effectID, position, angle, time, distance, velocit
 	self.id = self.id + 1
 	if self.id > self.maxID then self.id = self.minID end
 	
-	Network:Broadcast("NewEffect", args)
+	Network:Broadcast("CreateEffect", args)
 	return args.id
 end
 
