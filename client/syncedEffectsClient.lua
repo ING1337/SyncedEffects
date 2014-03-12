@@ -40,7 +40,7 @@ end
 function SyncedEffects:Create(e)
 	if Vector3.Distance(e.position, LocalPlayer:GetPosition()) <= e.distance then
 		e.effect = ClientEffect.Create(AssetLocation.Game, e)
-		e.sub    = Network:Subscribe("UE" .. e.id, self, self.Update)
+		e.sub    = Network:Subscribe("UpdateEffect" .. e.id, self, self.Update)
 		if e.time > 0 then e.time = e.time * 1000 + self.timer:GetMilliseconds() end
 		self.effects[e.id] = e
 	end
