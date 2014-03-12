@@ -9,8 +9,8 @@ function SyncedEffects:__init(fps)
 	self.lastRender = 0
 	
 	Events:Subscribe("Render", self, self.RenderEffects)
-	Network:Subscribe("NewEffect", self, self.NewEffect)
-	Network:Subscribe("RemoveEffect", self, self.RemoveEffect)
+	Network:Subscribe("NewEffect", self, self.Create)
+	Network:Subscribe("RemoveEffect", self, self.Remove)
 end
 
 -- ####################################################################################################################################
@@ -20,9 +20,11 @@ function SyncedEffects:RenderEffects()
 	
 	if time > self.lastRender + self.fps  then
 		timing = (time - self.lastRender) / 1000
+		self.lastRender = time
+		
 		for k, e in pairs(self.effects) do
 			if e.time > 0 and e.time < time then
-				self:RemoveEffect(e)
+				self:Remove(e)
 			else
 				e.position = e.position + e.velocity * timing
 				e.angle    = e.angle    * self:ScaleAngle(e.spin, timing)
@@ -30,22 +32,21 @@ function SyncedEffects:RenderEffects()
 				e.effect:SetAngle(e.angle)
 			end
 		end
-		self.lastRender = time
 	end
 end
 
 -- ####################################################################################################################################
 
-function SyncedEffects:NewEffect(e)
+function SyncedEffects:Create(e)
 	if Vector3.Distance(e.position, LocalPlayer:GetPosition()) <= e.distance then
 		e.effect = ClientEffect.Create(AssetLocation.Game, e)
-		e.sub    = Network:Subscribe("UE" .. e.id, self, self.UpdateEffect)
+		e.sub    = Network:Subscribe("UE" .. e.id, self, self.Update)
 		if e.time > 0 then e.time = e.time * 1000 + self.timer:GetMilliseconds() end
 		self.effects[e.id] = e
 	end
 end
 
-function SyncedEffects:UpdateEffect(e)
+function SyncedEffects:Update(e)
 	local effect = self.effects[e.id]
 	if effect then
 		if e.position then effect.position = e.position end
@@ -56,7 +57,7 @@ function SyncedEffects:UpdateEffect(e)
 	end
 end
 
-function SyncedEffects:RemoveEffect(e)
+function SyncedEffects:Remove(e)
 	local effect = self.effects[e.id]
 	if effect then
 		effect.effect:Remove()
@@ -74,4 +75,3 @@ end
 -- ####################################################################################################################################
 
 syncedEffects = SyncedEffects()
-
