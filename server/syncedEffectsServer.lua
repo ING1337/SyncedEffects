@@ -6,10 +6,7 @@ function SyncedEffects:__init(minID, maxID)
 	self.minID = minID or 1
 	self.maxID = maxID or 10000
 	self.id    = self.minID
-	
 	Events:Subscribe("CreateSyncedEffect", self, self.CreateSyncedEffect)
-	Events:Subscribe("UpdateSyncedEffect", self, self.UpdateSyncedEffect)
-	Events:Subscribe("RemoveSyncedEffect", self, self.RemoveSyncedEffect)
 end
 
 -- ####################################################################################################################################
@@ -51,16 +48,8 @@ end
 
 function SyncedEffects:CreateSyncedEffect(args)
 	args.id = self.id
+	self.id = self.id + 1
 	Network:Broadcast("CreateEffect", args)
-end
-
-function SyncedEffects:UpdateSyncedEffect(args)
-	args.id = self.id
-	Network:Broadcast("UpdateEffect" .. self.id, args)
-end
-
-function SyncedEffects:RemoveSyncedEffect(args)
-	Network:Broadcast("RemoveEffect", {id = self.id})
 end
 
 -- ####################################################################################################################################
