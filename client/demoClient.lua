@@ -5,7 +5,7 @@ OnMouseClick = function(args)
 	sendArgs.id      = id
 	sendArgs.button  = args.button
 	sendArgs.raycast = Physics:Raycast(Camera:GetPosition(), Camera:GetAngle() * Vector3.Forward, 0, 1024)
-	Network:Send("MouseTrigger", sendArgs)
+	Network:Send("TriggerEffect", sendArgs)
 end
 
 OnMouseWheel = function(args)
