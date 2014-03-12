@@ -9,7 +9,7 @@ function SyncedEffects:__init(fps)
 	self.lastRender = 0
 	
 	Events:Subscribe("Render", self, self.RenderEffects)
-	Network:Subscribe("NewEffect", self, self.Create)
+	Network:Subscribe("CreateEffect", self, self.Create)
 	Network:Subscribe("RemoveEffect", self, self.Remove)
 end
 
