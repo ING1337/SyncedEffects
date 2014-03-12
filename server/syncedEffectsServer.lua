@@ -22,9 +22,7 @@ function SyncedEffects:Create(effectID, position, angle, time, distance, velocit
 	args.velocity  = velocity
 	args.spin      = spin
 	
-	self.id = self.id + 1
-	if self.id > self.maxID then self.id = self.minID end
-	
+	self.id = self.id >= self.maxID and self.minID or self.id + 1
 	Network:Broadcast("CreateEffect", args)
 	return args.id
 end
