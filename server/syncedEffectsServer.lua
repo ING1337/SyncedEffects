@@ -36,7 +36,7 @@ function SyncedEffects:Update(id, position, angle, velocity, spin, time)
 	args.velocity = velocity
 	args.spin     = spin
 	args.time     = time
-	Network:Broadcast("UE" .. id, args)
+	Network:Broadcast("UpdateEffect" .. id, args)
 end
 
 function SyncedEffects:Remove(eid)
