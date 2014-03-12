@@ -23,7 +23,7 @@ function SyncedEffects:RenderEffects()
 		self.lastRender = time
 		
 		for k, e in pairs(self.effects) do
-			if e.time > 0 and e.time < time then
+			if e.time and e.time < time then
 				self:Remove(e)
 			else
 				e.position = e.position + e.velocity * timing
@@ -38,12 +38,17 @@ end
 -- ####################################################################################################################################
 
 function SyncedEffects:Create(e)
-	if Vector3.Distance(e.position, LocalPlayer:GetPosition()) <= e.distance then
-		e.effect = ClientEffect.Create(AssetLocation.Game, e)
-		e.sub    = Network:Subscribe("UpdateEffect" .. e.id, self, self.Update)
-		if e.time > 0 then e.time = e.time * 1000 + self.timer:GetMilliseconds() end
-		self.effects[e.id] = e
-	end
+	if Vector3.Distance(e.position, LocalPlayer:GetPosition()) > e.distance then return end
+	
+	e.angle    = e.angle or Angle()
+	e.time     = e.time and e.time * 1000 + self.timer:GetMilliseconds() or nil
+	e.distance = e.distance or 1024
+	e.velocity = e.velocity or Vector3()
+	e.spin     = e.spin or Angle()
+	e.effect   = ClientEffect.Create(AssetLocation.Game, e)
+	e.sub      = Network:Subscribe("UpdateEffect" .. e.id, self, self.Update)
+	--if e.time > 0 then e.time = e.time * 1000 + self.timer:GetMilliseconds() end
+	self.effects[e.id] = e
 end
 
 function SyncedEffects:Update(e)
