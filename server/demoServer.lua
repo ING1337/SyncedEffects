@@ -3,7 +3,7 @@
 MouseTrigger = function(args, player)
 	if args.button == 1 then
 		-- create a new synced effect
-		lastEffectID = SyncedEffect:Create(args.id, args.raycast.position, nil, 10, 1024, Vector3(0, 2, 0), nil)
+		lastEffectID = SyncedEffect:Create(args.id, args.raycast.position, nil, 10, 1024, Vector3(0, 2, 0))
 	else
 		-- update the last effect position
 		SyncedEffect:Update(lastEffectID, args.raycast.position)
