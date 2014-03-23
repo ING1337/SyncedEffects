@@ -38,11 +38,11 @@ end
 -- ####################################################################################################################################
 
 function SyncedEffects:Create(e)
+	e.distance = e.distance or 1024
 	if Vector3.Distance(e.position, LocalPlayer:GetPosition()) > e.distance then return end
 	
 	e.angle    = e.angle or Angle()
 	e.time     = e.time and e.time * 1000 + self.timer:GetMilliseconds() or nil
-	e.distance = e.distance or 1024
 	e.velocity = e.velocity or Vector3()
 	e.spin     = e.spin or Angle()
 	e.effect   = ClientEffect.Create(AssetLocation.Game, e)
